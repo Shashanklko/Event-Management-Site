@@ -20,30 +20,6 @@ This repository contains two main front-end client directories:
 
 ## 🚀 Key Features (Version 2)
 
-### 🖥️ Public Website (`client_v2`)
-- **Chapters Narrative Layout:** A beautiful, story-driven single-page landing layout containing:
-  - **Chapter 1 (Welcome):** Full-bleed cinematic video background and welcoming copy.
-  - **Chapter 2 (About):** Luxury branding introduction.
-  - **Chapter 3 (Gallery):** Interactive gallery with categories and full-screen lightbox media viewer.
-  - **Chapter 4 (Past Events):** Categorized listings of Past Experiences.
-  - **Chapter 5 (Upcoming Events):** Upcoming Gatherings (with RSVP seating request forms).
-  - **Chapter 6 (Team):** Team directory cards.
-  - **Chapter 7 (Contact):** Inquiry submission form with dynamic details.
-- **Auto-Gmail Compose Integration:** When visitors submit a query, the form registers the entry in the admin portal and automatically opens a Gmail window pre-filled with the inquiry details.
-- **Active Light & Dark Themes:** Custom styled high-contrast themes, featuring custom vignette overlays, blur-blobs, scrollbars, and inputs designed for readability in both modes.
-
-### 🔐 Secure Operations Terminal (Admin Portal)
-Access the secure terminal directly by clicking the **Settings Gear** icon in the navbar.
-- **Credentials:**
-  - **Username:** `admin`
-  - **Password:** `elysian2026`
-- **Real-Time Overview Stats:** View stats of Total Events, Active Gatherings, Archived Experiences, and Pending Inquiries.
-- **Events Workspace:** Create, edit, complete, or delete past and upcoming events.
-- **Gallery Curator:** Add and remove media items shown in the public showcase gallery.
-- **Team Directory:** Manage staff members, positions, handling experience, and bio details.
-- **Contact Us Details Management:** Update public email, office address, and social links (LinkedIn, Twitter, Instagram) instantly.
-- **Gmail Reply Action:** Reply to visitor inquiries in one click directly from the Admin Inbox using the built-in Gmail integration.
-
 ---
 
 ## 🛠️ Technology Stack

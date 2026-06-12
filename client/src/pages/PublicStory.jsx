@@ -12,11 +12,11 @@ import welcomeVideo from "../assets/12912084_1920_1080_25fps.mp4";
 // Chapter component imports
 import Chapter1_Welcome from "./chapters/Chapter1_Welcome";
 import Chapter2_About from "./chapters/Chapter2_About";
-import Chapter4_Team from "./chapters/Chapter4_Team";
-import Chapter6_PastEvents from "./chapters/Chapter6_PastEvents";
-import Chapter7_UpcomingEvents from "./chapters/Chapter7_UpcomingEvents";
-import Chapter8_Gallery from "./chapters/Chapter8_Gallery";
-import Chapter9_Contact from "./chapters/Chapter9_Contact";
+import Chapter3_Gallery from "./chapters/Chapter3_Gallery";
+import Chapter4_PastEvents from "./chapters/Chapter4_PastEvents";
+import Chapter5_UpcomingEvents from "./chapters/Chapter5_UpcomingEvents";
+import Chapter6_Team from "./chapters/Chapter6_Team";
+import Chapter7_Contact from "./chapters/Chapter7_Contact";
 
 const PublicStory = ({ activeChapter, setActiveChapter }) => {
   const { events, gallery, team, submitInquiry } = useEvents();
@@ -330,11 +330,11 @@ const PublicStory = ({ activeChapter, setActiveChapter }) => {
     switch (activeChapter) {
       case 0: return <Chapter1_Welcome onNavigate={handleNavigate} />;
       case 1: return <Chapter2_About />;
-      case 2: return <Chapter8_Gallery gallery={gallery} onSelectMedia={setLightboxIndex} />;
-      case 3: return <Chapter6_PastEvents events={events} eventFilter={eventFilter} setEventFilter={setEventFilter} onSelectEvent={setSelectedEvent} />;
-      case 4: return <Chapter7_UpcomingEvents events={events} onRsvp={setRsvpEvent} />;
-      case 5: return <Chapter4_Team team={team} />;
-      case 6: return <Chapter9_Contact submitInquiry={submitInquiry} />;
+      case 2: return <Chapter3_Gallery gallery={gallery} onSelectMedia={setLightboxIndex} />;
+      case 3: return <Chapter4_PastEvents events={events} eventFilter={eventFilter} setEventFilter={setEventFilter} onSelectEvent={setSelectedEvent} />;
+      case 4: return <Chapter5_UpcomingEvents events={events} onRsvp={setRsvpEvent} />;
+      case 5: return <Chapter6_Team team={team} />;
+      case 6: return <Chapter7_Contact submitInquiry={submitInquiry} />;
       default: return <Chapter1_Welcome onNavigate={handleNavigate} />;
     }
   };
@@ -451,12 +451,12 @@ const PublicStory = ({ activeChapter, setActiveChapter }) => {
               <ChevronLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
             </button>
             <span className="text-[9px] tracking-[0.2em] font-medium text-slate-500">
-              CH {String(activeChapter + 1).padStart(2, "0")} / 08
+              CH {String(activeChapter + 1).padStart(2, "0")} / 07
             </span>
             <button
-              disabled={activeChapter === 7}
+              disabled={activeChapter === 6}
               onClick={() => handleNavigate(activeChapter + 1)}
-              className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 focus:outline-none group ${activeChapter === 7
+              className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 focus:outline-none group ${activeChapter === 6
                   ? "border-white/2 opacity-25 cursor-not-allowed"
                   : "border-white/5 hover:border-amber-400/50 text-slate-400 hover:text-amber-400 cursor-pointer bg-white/2 hover:bg-white/5"
                 }`}

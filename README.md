@@ -24,10 +24,11 @@ This repository contains two main front-end client directories:
 - **Chapters Narrative Layout:** A beautiful, story-driven single-page landing layout containing:
   - **Chapter 1 (Welcome):** Full-bleed cinematic video background and welcoming copy.
   - **Chapter 2 (About):** Luxury branding introduction.
-  - **Chapter 8 (Gallery):** Interactive gallery with categories and full-screen lightbox media viewer.
-  - **Chapter 6/7 (Events):** Categorized listings of Upcoming Gatherings and Past Experiences (with RSVP seating request forms).
-  - **Chapter 4 (Team):** Team directory cards.
-  - **Chapter 9 (Contact):** Inquiry submission form with dynamic details.
+  - **Chapter 3 (Gallery):** Interactive gallery with categories and full-screen lightbox media viewer.
+  - **Chapter 4 (Past Events):** Categorized listings of Past Experiences.
+  - **Chapter 5 (Upcoming Events):** Upcoming Gatherings (with RSVP seating request forms).
+  - **Chapter 6 (Team):** Team directory cards.
+  - **Chapter 7 (Contact):** Inquiry submission form with dynamic details.
 - **Auto-Gmail Compose Integration:** When visitors submit a query, the form registers the entry in the admin portal and automatically opens a Gmail window pre-filled with the inquiry details.
 - **Active Light & Dark Themes:** Custom styled high-contrast themes, featuring custom vignette overlays, blur-blobs, scrollbars, and inputs designed for readability in both modes.
 

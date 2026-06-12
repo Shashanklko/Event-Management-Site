@@ -14,7 +14,7 @@ const FadeEvent = ({ children, delay = 0 }) => (
   </motion.div>
 );
 
-const Chapter6_PastEvents = ({ events, onSelectEvent }) => {
+const Chapter4_PastEvents = ({ events, onSelectEvent }) => {
   const pastEvents = events.filter(e => e.completed).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
@@ -106,4 +106,4 @@ const Chapter6_PastEvents = ({ events, onSelectEvent }) => {
   );
 };
 
-export default Chapter6_PastEvents;
+export default Chapter4_PastEvents;

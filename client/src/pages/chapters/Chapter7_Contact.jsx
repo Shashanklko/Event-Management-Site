@@ -28,7 +28,7 @@ const InputLine = ({ label, type = "text", value, onChange, placeholder, require
   </div>
 );
 
-const Chapter9_Contact = ({ submitInquiry }) => {
+const Chapter7_Contact = ({ submitInquiry }) => {
   const [contactForm, setContactForm] = useState({ name: "", email: "", inquiry: "" });
   const [contactSuccess, setContactSuccess] = useState(false);
 
@@ -151,4 +151,4 @@ const Chapter9_Contact = ({ submitInquiry }) => {
   );
 };
 
-export default Chapter9_Contact;
+export default Chapter7_Contact;

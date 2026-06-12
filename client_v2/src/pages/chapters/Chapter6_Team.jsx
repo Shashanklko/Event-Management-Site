@@ -15,7 +15,7 @@ const FadeSection = ({ children, delay = 0 }) => (
   </motion.div>
 );
 
-const Chapter4_Team = ({ team }) => {
+const Chapter6_Team = ({ team }) => {
   const [selectedMember, setSelectedMember] = useState(null);
 
   return (
@@ -142,4 +142,4 @@ const Chapter4_Team = ({ team }) => {
   );
 };
 
-export default Chapter4_Team;
+export default Chapter6_Team;

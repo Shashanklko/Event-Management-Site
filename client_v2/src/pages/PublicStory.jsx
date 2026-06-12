@@ -12,11 +12,11 @@ import welcomeVideo from "../assets/12912084_1920_1080_25fps.mp4";
 // Chapter component imports
 import Chapter1_Welcome from "./chapters/Chapter1_Welcome";
 import Chapter2_About from "./chapters/Chapter2_About";
-import Chapter4_Team from "./chapters/Chapter4_Team";
-import Chapter6_PastEvents from "./chapters/Chapter6_PastEvents";
-import Chapter7_UpcomingEvents from "./chapters/Chapter7_UpcomingEvents";
-import Chapter8_Gallery from "./chapters/Chapter8_Gallery";
-import Chapter9_Contact from "./chapters/Chapter9_Contact";
+import Chapter3_Gallery from "./chapters/Chapter3_Gallery";
+import Chapter4_PastEvents from "./chapters/Chapter4_PastEvents";
+import Chapter5_UpcomingEvents from "./chapters/Chapter5_UpcomingEvents";
+import Chapter6_Team from "./chapters/Chapter6_Team";
+import Chapter7_Contact from "./chapters/Chapter7_Contact";
 
 const PublicStory = () => {
   const { events, gallery, team, submitInquiry, contactDetails } = useEvents();
@@ -92,23 +92,23 @@ const PublicStory = () => {
         </section>
 
         <section id="gallery" className="w-full relative py-20">
-          <Chapter8_Gallery gallery={gallery} onSelectMedia={setLightboxIndex} />
+          <Chapter3_Gallery gallery={gallery} onSelectMedia={setLightboxIndex} />
         </section>
 
         <section id="past-events" className="w-full relative py-20">
-          <Chapter6_PastEvents events={events} eventFilter={eventFilter} setEventFilter={setEventFilter} onSelectEvent={setSelectedEvent} />
+          <Chapter4_PastEvents events={events} eventFilter={eventFilter} setEventFilter={setEventFilter} onSelectEvent={setSelectedEvent} />
         </section>
 
         <section id="upcoming" className="w-full relative py-20">
-          <Chapter7_UpcomingEvents events={events} onRsvp={setRsvpEvent} />
+          <Chapter5_UpcomingEvents events={events} onRsvp={setRsvpEvent} />
         </section>
 
         <section id="team" className="w-full relative py-20">
-          <Chapter4_Team team={team} />
+          <Chapter6_Team team={team} />
         </section>
 
         <section id="contact" className="w-full relative py-20 pb-32">
-          <Chapter9_Contact submitInquiry={submitInquiry} contactDetails={contactDetails} />
+          <Chapter7_Contact submitInquiry={submitInquiry} contactDetails={contactDetails} />
         </section>
 
         {/* FOOTER */}

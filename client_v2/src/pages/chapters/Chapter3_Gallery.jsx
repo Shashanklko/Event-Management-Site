@@ -38,7 +38,7 @@ const ImageCard = ({ index, className, delay = 0, gallery, onSelectMedia }) => {
   );
 };
 
-const Chapter8_Gallery = ({ gallery, onSelectMedia }) => {
+const Chapter3_Gallery = ({ gallery, onSelectMedia }) => {
   if (!gallery || gallery.length === 0) {
     return (
       <div className="w-full h-full flex items-center justify-center text-slate-500 text-xs">
@@ -86,4 +86,4 @@ const Chapter8_Gallery = ({ gallery, onSelectMedia }) => {
   );
 };
 
-export default Chapter8_Gallery;
+export default Chapter3_Gallery;

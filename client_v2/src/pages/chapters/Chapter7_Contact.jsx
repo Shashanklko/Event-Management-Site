@@ -29,7 +29,7 @@ const InputLine = ({ label, type = "text", value, onChange, placeholder, require
   </div>
 );
 
-const Chapter9_Contact = ({ submitInquiry, contactDetails = {} }) => {
+const Chapter7_Contact = ({ submitInquiry, contactDetails = {} }) => {
   const {
     email = "hello@elysian.org",
     address = "144 Luxury Avenue, Suite 900\nNew York, NY 10012\nUnited States",
@@ -196,4 +196,4 @@ const Chapter9_Contact = ({ submitInquiry, contactDetails = {} }) => {
   );
 };
 
-export default Chapter9_Contact;
+export default Chapter7_Contact;

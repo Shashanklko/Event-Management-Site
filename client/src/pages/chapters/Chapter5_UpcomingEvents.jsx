@@ -14,7 +14,7 @@ const FadeEvent = ({ children, delay = 0 }) => (
   </motion.div>
 );
 
-const Chapter7_UpcomingEvents = ({ events, onRsvp }) => {
+const Chapter5_UpcomingEvents = ({ events, onRsvp }) => {
   const upcomingEvents = events.filter(e => !e.completed).sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
@@ -95,4 +95,4 @@ const Chapter7_UpcomingEvents = ({ events, onRsvp }) => {
   );
 };
 
-export default Chapter7_UpcomingEvents;
+export default Chapter5_UpcomingEvents;

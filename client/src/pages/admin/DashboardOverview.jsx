@@ -1,12 +1,13 @@
 import React from "react";
-import { DollarSign, CheckCircle, ArrowUpRight } from "lucide-react";
+import { Calendar, CheckCircle } from "lucide-react";
 import { GlassCard } from "../../components/ui";
 
 const DashboardOverview = ({
-  events, inquiries, totalBudget, totalSpent,
-  activeEventsCount, completedEventsCount, budgetHealth,
-  setActiveTab, setTrackingEvent
+  events, inquiries, activeEventsCount, completedEventsCount, setActiveTab
 }) => {
+  const totalEvents = events.length;
+  const pendingInquiriesCount = inquiries.filter(i => i.status === "new").length;
+
   return (
     <div className="flex flex-col gap-8 text-left">
       <div>
@@ -18,40 +19,38 @@ const DashboardOverview = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <GlassCard className="flex flex-col justify-between py-6">
           <div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Total Managed Assets</div>
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Total Events</div>
             <div className="text-2xl font-light text-white flex items-center font-sans">
-              <DollarSign className="w-5 h-5 text-amber-400" />
-              {totalBudget.toLocaleString()}
+              {totalEvents}
             </div>
           </div>
           <div className="text-[9px] text-slate-400 mt-4">
-            Spent: <span className="text-amber-300">${totalSpent.toLocaleString()}</span>
+            Managed database entries
           </div>
         </GlassCard>
 
         <GlassCard className="flex flex-col justify-between py-6">
           <div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Active Projects</div>
-            <div className="text-2xl font-light text-white font-sans">
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Upcoming Gatherings</div>
+            <div className="text-2xl font-light text-amber-400 font-sans">
               {activeEventsCount}
+            </div>
+          </div>
+          <div className="text-[9px] text-slate-400 mt-4">
+            Active in planning pipeline
+          </div>
+        </GlassCard>
+
+        <GlassCard className="flex flex-col justify-between py-6">
+          <div>
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Past Experiences</div>
+            <div className="text-2xl font-light text-indigo-400 font-sans">
+              {completedEventsCount}
             </div>
           </div>
           <div className="text-[9px] text-emerald-400 mt-4 flex items-center gap-1">
             <CheckCircle className="w-3.5 h-3.5" />
-            {completedEventsCount} Archive Complete
-          </div>
-        </GlassCard>
-
-        <GlassCard className="flex flex-col justify-between py-6">
-          <div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1">Budget Health</div>
-            <div className={`text-2xl font-light font-sans ${budgetHealth === "Over Budget" ? "text-red-400" : "text-emerald-400"
-              }`}>
-              {budgetHealth}
-            </div>
-          </div>
-          <div className="text-[9px] text-slate-400 mt-4">
-            Variance status: <span className="font-semibold text-slate-300">{(totalBudget - totalSpent).toLocaleString()} surplus</span>
+            Archive Complete
           </div>
         </GlassCard>
 
@@ -63,7 +62,7 @@ const DashboardOverview = ({
             </div>
           </div>
           <div className="text-[9px] text-slate-400 mt-4">
-            New submissions: <span className="text-amber-300 font-semibold">{inquiries.filter(i => i.status === "new").length} pending</span>
+            New submissions: <span className="text-amber-300 font-semibold">{pendingInquiriesCount} pending</span>
           </div>
         </GlassCard>
       </div>
@@ -72,7 +71,7 @@ const DashboardOverview = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <GlassCard>
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-light font-serif-luxury text-white">Active Event Pipelines</h3>
+            <h3 className="text-lg font-light font-serif-luxury text-white">Upcoming Events</h3>
             <button onClick={() => setActiveTab("events")} className="text-[10px] tracking-wider text-amber-300 uppercase hover:underline cursor-pointer focus:outline-none">View All</button>
           </div>
 
@@ -80,33 +79,30 @@ const DashboardOverview = ({
             {events.filter(e => !e.completed).slice(0, 3).map(evt => (
               <div
                 key={evt.id}
-                onClick={() => {
-                  setTrackingEvent(evt);
-                  setActiveTab("events");
-                }}
+                onClick={() => setActiveTab("events")}
                 className="bg-white/2 hover:bg-white/5 border border-white/5 rounded-xl p-4 flex justify-between items-center cursor-pointer transition-all"
               >
                 <div>
                   <h4 className="text-sm font-semibold text-white">{evt.title}</h4>
-                  <span className="text-[10px] text-slate-500">{evt.venue}</span>
+                  <span className="text-[10px] text-slate-500">{evt.host}</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs text-amber-300 font-semibold">{evt.completionPercentage}%</div>
-                  <div className="w-16 bg-slate-800 h-1 rounded-full overflow-hidden mt-1">
-                    <div className="bg-amber-400 h-full" style={{ width: `${evt.completionPercentage}%` }} />
+                  <div className="text-xs text-slate-400 flex items-center gap-1 font-mono">
+                    <Calendar className="w-3 h-3 text-amber-400" />
+                    {evt.date}
                   </div>
                 </div>
               </div>
             ))}
             {events.filter(e => !e.completed).length === 0 && (
-              <div className="text-center py-6 text-xs text-slate-500">No active event tracking sheets in pipeline.</div>
+              <div className="text-center py-6 text-xs text-slate-500">No upcoming events in database.</div>
             )}
           </div>
         </GlassCard>
 
         <GlassCard>
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-light font-serif-luxury text-white">Recent Commission Inquiries</h3>
+            <h3 className="text-lg font-light font-serif-luxury text-white">Recent Inquiries</h3>
             <button onClick={() => setActiveTab("inquiries")} className="text-[10px] tracking-wider text-amber-300 uppercase hover:underline cursor-pointer focus:outline-none">View All</button>
           </div>
 
@@ -126,7 +122,7 @@ const DashboardOverview = ({
               </div>
             ))}
             {inquiries.length === 0 && (
-              <div className="text-center py-6 text-xs text-slate-500">No client inquiry submissions inbox.</div>
+              <div className="text-center py-6 text-xs text-slate-500">No client inquiries.</div>
             )}
           </div>
         </GlassCard>

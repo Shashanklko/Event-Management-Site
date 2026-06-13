@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Calendar, MapPin, Users, CheckCircle, Clock,
+  Calendar, MapPin, Users, CheckCircle,
   X, ChevronLeft, ChevronRight, Compass
 } from "lucide-react";
+import { FaLinkedinIn, FaXTwitter, FaFacebookF } from "react-icons/fa6";
 import { useEvents } from "../context/EventContext";
 import { GlowBg } from "../components/ui";
 const welcomeBg = "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=1920";
@@ -25,6 +26,7 @@ const PublicStory = () => {
 
   // Modals state
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
   const [rsvpEvent, setRsvpEvent] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [rsvpSuccess, setRsvpSuccess] = useState(false);
@@ -104,7 +106,7 @@ const PublicStory = () => {
         </section>
 
         <section id="team" className="w-full relative py-20">
-          <Chapter6_Team team={team} />
+          <Chapter6_Team team={team} onSelectMember={setSelectedMember} />
         </section>
 
         <section id="contact" className="w-full relative py-20 pb-32">
@@ -157,70 +159,45 @@ const PublicStory = () => {
                 <div className="md:col-span-7 p-6 md:p-8 flex flex-col gap-5 max-h-[550px] overflow-y-auto">
                   <div>
                     <span className="text-[9px] tracking-widest uppercase text-amber-400 font-semibold px-2 rounded-full border border-amber-400/20 bg-amber-400/5">
-                      {selectedEvent.category} Case Study
+                      Past Experience
                     </span>
                     <h3 className="text-2xl font-light text-white font-serif-luxury mt-3 mb-2">{selectedEvent.title}</h3>
                     <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 font-light">
                       <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> {selectedEvent.date}</span>
-                      <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {selectedEvent.venue}</span>
+                    {selectedEvent.venue && <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> {selectedEvent.venue}</span>}
                     </div>
                   </div>
 
-                  <p className="text-slate-300 text-xs md:text-sm font-light leading-relaxed">{selectedEvent.description}</p>
+                  {selectedEvent.description && (
+                    <p className="text-slate-300 text-xs md:text-sm font-light leading-relaxed">{selectedEvent.description}</p>
+                  )}
 
-                  <div className="grid grid-cols-2 gap-4 border-y border-white/5 py-4">
-                    <div>
-                      <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold mb-1">Lead Organizers</div>
-                      <div className="text-xs md:text-sm text-white font-medium flex items-center gap-2 font-sans">
-                        <Users className="w-3.5 h-3.5 text-amber-400" />
-                        {selectedEvent.teamAssignments.join(", ")}
+                  <div className="flex flex-col gap-3 border-y border-white/5 py-4">
+                    {selectedEvent.host && (
+                      <div>
+                        <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold mb-1">Hosted By</div>
+                        <div className="text-xs md:text-sm text-white font-medium font-sans">{selectedEvent.host}</div>
                       </div>
-                      <span className="text-[8px] uppercase tracking-widest font-semibold text-amber-400/70 mt-1 block">
-                        Event Execution Team
-                      </span>
-                    </div>
-
-                    <div>
-                      <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold mb-1">Execution Status</div>
-                      <div className="text-xs md:text-sm text-amber-300 font-medium">
-                        {selectedEvent.completionPercentage}% Complete
+                    )}
+                    {selectedEvent.guestLecturer && (
+                      <div>
+                        <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold mb-1">Guest Speaker</div>
+                        <div className="text-xs md:text-sm text-amber-300 font-medium font-sans">{selectedEvent.guestLecturer}</div>
                       </div>
-                      <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1">
-                        <div className="bg-gradient-to-r from-amber-400 to-amber-200 h-full rounded-full" style={{ width: `${selectedEvent.completionPercentage}%` }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold mb-2">Milestone Checklist</h4>
-                    <div className="flex flex-col gap-2">
-                      {selectedEvent.tasks.map(task => (
-                        <div key={task.id} className="flex items-center gap-2 bg-white/3 border border-white/2 rounded-lg p-2">
-                          {task.completed ? (
-                            <CheckCircle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-                          ) : (
-                            <Clock className="w-3.5 h-3.5 text-slate-600 flex-shrink-0" />
-                          )}
-                          <span className={`text-xs ${task.completed ? "text-slate-300 line-through" : "text-slate-400"}`}>
-                            {task.text}
-                          </span>
+                    )}
+                    {selectedEvent.teamAssignments && selectedEvent.teamAssignments.length > 0 && (
+                      <div>
+                        <div className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold mb-1">Organizing Team</div>
+                        <div className="text-xs md:text-sm text-white font-medium flex items-center gap-2 font-sans">
+                          <Users className="w-3.5 h-3.5 text-amber-400" />
+                          {selectedEvent.teamAssignments.join(", ")}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold mb-2">Assigned Crew</h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {selectedEvent.teamAssignments.map((name, idx) => (
-                        <span key={idx} className="bg-slate-900 border border-white/5 px-2.5 py-1 rounded-full text-[9px] uppercase tracking-wider text-slate-300">
-                          {name}
-                        </span>
-                      ))}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
+
             </motion.div>
           </motion.div>
         )}
@@ -370,6 +347,76 @@ const PublicStory = () => {
               <div className="text-[9px] text-slate-500 mt-1 uppercase tracking-widest font-mono">
                 {lightboxIndex + 1} / {gallery.length}
               </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 4. TEAM MEMBER DETAIL MODAL */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050810]/95 backdrop-blur-md"
+          >
+            <button 
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors duration-300 z-10"
+            >
+              <X className="w-8 h-8 font-light" strokeWidth={1} />
+            </button>
+
+            <div className="flex flex-col md:flex-row w-full max-w-7xl h-full md:h-[80vh] items-center justify-center p-8 md:p-16 gap-12 md:gap-24 overflow-y-auto no-scrollbar">
+              
+              {/* Massive Image */}
+              <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full md:w-1/2 h-[50vh] md:h-full max-h-[800px] overflow-hidden"
+              >
+                <img src={selectedMember.image} alt={selectedMember.name} className="w-full h-full object-cover" />
+              </motion.div>
+
+              {/* Bio & Details */}
+              <motion.div 
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full md:w-1/2 flex flex-col items-start gap-8"
+              >
+                <div>
+                  <h2 className="text-6xl md:text-8xl font-serif-luxury text-white tracking-widest leading-none mb-4">
+                    {selectedMember.name}
+                  </h2>
+                  <div className="text-sm tracking-[0.4em] uppercase text-amber-500 font-mono">
+                    {selectedMember.role}
+                  </div>
+                </div>
+
+                <div className="h-[1px] w-full max-w-sm bg-white/10" />
+
+                <p className="text-lg font-light text-slate-400 leading-relaxed max-w-xl">
+                  {selectedMember.bio}
+                </p>
+
+                {/* Elegant Socials */}
+                <div className="flex items-center gap-8 mt-4">
+                  <a href="#" className="text-slate-500 hover:text-white transition-colors duration-300">
+                    <FaLinkedinIn className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="text-slate-500 hover:text-white transition-colors duration-300">
+                    <FaXTwitter className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="text-slate-500 hover:text-white transition-colors duration-300">
+                    <FaFacebookF className="w-5 h-5" />
+                  </a>
+                </div>
+              </motion.div>
+
             </div>
           </motion.div>
         )}

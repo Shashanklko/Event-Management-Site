@@ -106,7 +106,7 @@ h1, h2, h3, h4, .font-serif-luxury {
 
 /* --- LIGHT THEME STYLING OVERRIDES --- */
 html.light body {
-  background-color: #FFFFFF !important;
+  background-color: #e4dfd9 !important;
   color: #1C1917;
 }
 
@@ -170,26 +170,31 @@ html.light .bg-slate-950\/40 {
 
 /* Solid background overrides for App.jsx and PublicStory.jsx wrappers */
 html.light .bg-\[\#0b0f19\],
-html.light .bg-\[\#0B0F19\] {
-  background-color: #f8fafc !important; /* Slightly off-white for better glass contrast */
+html.light .bg-\[\#0B0F19\],
+html.light .bg-\[\#050810\] {
+  background-color: #dedad4 !important; /* warm soft gray — easy on the eye */
 }
 
 /* Background opacity overrides */
 html.light .bg-\[\#0b0f19\]\/50,
-html.light .bg-\[\#0B0F19\]\/50 {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+html.light .bg-\[\#0B0F19\]\/50,
+html.light .bg-\[\#050810\]\/50 {
+  background-color: rgba(228, 223, 217, 0.55) !important;
 }
 html.light .bg-\[\#0b0f19\]\/80,
-html.light .bg-\[\#0B0F19\]\/80 {
-  background-color: rgba(255, 255, 255, 0.8) !important;
+html.light .bg-\[\#0B0F19\]\/80,
+html.light .bg-\[\#050810\]\/80 {
+  background-color: rgba(222, 218, 212, 0.85) !important;
 }
 html.light .bg-\[\#0b0f19\]\/90,
-html.light .bg-\[\#0B0F19\]\/90 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+html.light .bg-\[\#0B0F19\]\/90,
+html.light .bg-\[\#050810\]\/90 {
+  background-color: rgba(218, 213, 207, 0.92) !important;
 }
 html.light .bg-\[\#0b0f19\]\/95,
-html.light .bg-\[\#0B0F19\]\/95 {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+html.light .bg-\[\#0B0F19\]\/95,
+html.light .bg-\[\#050810\]\/95 {
+  background-color: rgba(215, 210, 204, 0.96) !important;
 }
 html.light .bg-slate-950\/20 {
   background-color: rgba(0, 0, 0, 0.01) !important;
@@ -205,29 +210,35 @@ html.light .text-slate-200 {
 html.light .text-amber-200,
 html.light .text-amber-300,
 html.light .text-amber-400 {
-  color: #B0872C !important;
+  color: #754e1c !important;
 }
 
 /* Gradient vignette overlays for full bleed video background */
 html.light .from-\[\#0b0f19\].via-\[\#0b0f19\]\/40.to-\[\#0b0f19\],
-html.light .from-\[\#0B0F19\].via-\[\#0B0F19\]\/40.to-\[\#0B0F19\] {
+html.light .from-\[\#0B0F19\].via-\[\#0B0F19\]\/40.to-\[\#0B0F19\],
+html.light .from-\[\#050810\].via-\[\#050810\]\/40.to-\[\#050810\] {
   background-image: linear-gradient(to top, #FFFFFF, rgba(255, 255, 255, 0.4), #FFFFFF) !important;
 }
 html.light .from-\[\#0b0f19\].via-transparent.to-\[\#0b0f19\],
-html.light .from-\[\#0B0F19\].via-transparent.to-\[\#0B0F19\] {
+html.light .from-\[\#0B0F19\].via-transparent.to-\[\#0B0F19\],
+html.light .from-\[\#050810\].via-transparent.to-\[\#050810\] {
   background-image: linear-gradient(to right, #FFFFFF, transparent, #FFFFFF) !important;
 }
 
-html.light .border-white\/5,
-html.light .border-white\/10,
+html.light .border-white\/5 {
+  border-color: rgba(28, 25, 23, 0.1) !important;
+}
+html.light .border-white\/10 {
+  border-color: rgba(28, 25, 23, 0.2) !important;
+}
 html.light .border-white\/2 {
   border-color: rgba(28, 25, 23, 0.08) !important;
 }
 
 html.light .glass-card {
-  background: rgba(255, 255, 255, 0.65) !important;
-  border-color: rgba(28, 25, 23, 0.06) !important;
-  box-shadow: 0 10px 30px 0 rgba(28, 25, 23, 0.05) !important;
+  background: rgba(240, 236, 230, 0.75) !important;
+  border-color: rgba(28, 25, 23, 0.09) !important;
+  box-shadow: 0 10px 30px 0 rgba(28, 25, 23, 0.07) !important;
 }
 
 html.light .glass-card-hover:hover {
@@ -237,8 +248,8 @@ html.light .glass-card-hover:hover {
 }
 
 html.light .glass-panel {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border-color: rgba(28, 25, 23, 0.08) !important;
+  background: rgba(235, 230, 224, 0.85) !important;
+  border-color: rgba(28, 25, 23, 0.1) !important;
 }
 
 html.light select, 
@@ -252,6 +263,10 @@ html.light textarea {
 html.light select option {
   background-color: #FFFFFF;
   color: #1C1917;
+}
+
+html.light .bg-white\/2 {
+  background-color: rgba(0, 0, 0, 0.015) !important;
 }
 
 html.light .bg-white\/3 {
@@ -272,4 +287,48 @@ html.light ::-webkit-scrollbar-track {
 
 html.light ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
+}
+
+/* --- LIGHT MODE VISIBILITY EXTRA ENHANCEMENTS --- */
+html.light ::placeholder,
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: rgba(28, 25, 23, 0.45) !important;
+}
+
+html.light .border-amber-400,
+html.light .focus\:border-amber-400:focus {
+  border-color: #B0872C !important;
+}
+
+html.light .text-indigo-300 {
+  color: #4f46e5 !important;
+}
+html.light .text-indigo-400 {
+  color: #4338ca !important;
+}
+html.light .text-indigo-500 {
+  color: #312e81 !important;
+}
+html.light .text-indigo-500\/80 {
+  color: rgba(49, 46, 129, 0.8) !important;
+}
+html.light .bg-indigo-900\/40 {
+  background-color: rgba(79, 70, 229, 0.08) !important;
+}
+
+html.light .bg-amber-900\/40 {
+  background-color: rgba(117, 78, 28, 0.08) !important;
+}
+
+html.light .bg-amber-400\/5 {
+  background-color: rgba(176, 135, 44, 0.06) !important;
+}
+html.light .border-amber-500\/25 {
+  border-color: rgba(176, 135, 44, 0.3) !important;
+}
+
+/* Fixed background video top overlay contrast in light mode */
+html.light .fixed.inset-0.z-0 div {
+  background-image: linear-gradient(to bottom, rgba(248, 250, 252, 0.4), rgba(248, 250, 252, 0.8) 50%, #f8fafc) !important;
 }

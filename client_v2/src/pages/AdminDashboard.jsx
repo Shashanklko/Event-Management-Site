@@ -174,7 +174,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* MAIN CONTENT WORKSPACE */}
-      <main className="flex-1 p-6 md:p-12 overflow-y-auto max-h-[calc(100vh-80px)] pb-24 lg:pb-12 z-10">
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto max-h-[calc(100vh-80px)] pb-24 lg:pb-12">
         {renderActiveTab()}
       </main>
 

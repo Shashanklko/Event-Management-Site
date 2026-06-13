@@ -55,6 +55,31 @@ const initialEvents = [
     completed: false
   },
   {
+    id: "evt-5",
+    title: "Apex Business Case Competition",
+    category: "Competition",
+    date: "2026-11-20",
+    venue: "Elysian Grand Hall & Hybrid",
+    description: "An elite global business case challenge bringing together top universities to pitch financial restructure plans and venture capital strategies to industry judges.",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+    budget: { total: 12000, spent: 10000, status: "Under Budget" },
+    planningStatus: true,
+    venueStatus: true,
+    vendorStatus: true,
+    marketingStatus: true,
+    executionStatus: false,
+    completionPercentage: 80,
+    tasks: [
+      { id: "t1", text: "Finalize case packets and rules", completed: true },
+      { id: "t2", text: "Secure international judges panel", completed: true },
+      { id: "t3", text: "Onboard student delegate chapters", completed: true },
+      { id: "t4", text: "Reserve Grand Hall and digital stream channels", completed: true },
+      { id: "t5", text: "Execute final pitch presentations", completed: false }
+    ],
+    teamAssignments: ["Elena Rostova", "Adrian Vance"],
+    completed: false
+  },
+  {
     id: "evt-3",
     title: "Pulse Medical Innovations Seminar",
     category: "Webinar",
@@ -149,7 +174,15 @@ export const EventProvider = ({ children }) => {
 
   const [events, setEvents] = useState(() => {
     const stored = localStorage.getItem("elysian_academic_events");
-    return stored ? JSON.parse(stored) : initialEvents;
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (!parsed.some(e => e.id === "evt-5")) {
+        const targetEvent = initialEvents.find(e => e.id === "evt-5");
+        if (targetEvent) parsed.push(targetEvent);
+      }
+      return parsed;
+    }
+    return initialEvents;
   });
 
   const [gallery, setGallery] = useState(() => {
@@ -211,95 +244,43 @@ export const EventProvider = ({ children }) => {
     localStorage.removeItem("elysian_admin_session");
   };
 
-  // Helper function to recalculate completion percentage from checklist tasks
-  const recalculateCompletion = (tasks) => {
-    if (!tasks || tasks.length === 0) return 0;
-    const completed = tasks.filter(t => t.completed).length;
-    return Math.round((completed / tasks.length) * 100);
-  };
-
-  // Helper to sync primary status checkboxes with the state array
-  const checkStatusFlags = (tasks) => {
-    // We map: Planning (task 1), Venue (task 2), Vendor (task 3), Marketing (task 4), Execution (task 5)
-    return {
-      planningStatus: tasks[0] ? tasks[0].completed : false,
-      venueStatus: tasks[1] ? tasks[1].completed : false,
-      vendorStatus: tasks[2] ? tasks[2].completed : false,
-      marketingStatus: tasks[3] ? tasks[3].completed : false,
-      executionStatus: tasks[4] ? tasks[4].completed : false,
-    };
-  };
-
   // Event Operations
   const addEvent = (eventData) => {
-    const defaultTasks = [
-      { id: "t1", text: "Define conceptual design & theme mapping", completed: false },
-      { id: "t2", text: "Reserve luxury venue and permits", completed: false },
-      { id: "t3", text: "Confirm high-end catering and decor vendors", completed: false },
-      { id: "t4", text: "Deploy promotional campaigns and guest RSVPs", completed: false },
-      { id: "t5", text: "On-site setup coordination & execution rehearsals", completed: false }
-    ];
-    
     const newEvent = {
       id: `evt-${Date.now()}`,
       title: eventData.title,
-      category: eventData.category || "Custom Event Planning",
       date: eventData.date,
-      venue: eventData.venue,
-      description: eventData.description,
       image: eventData.image || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
-      budget: {
-        total: Number(eventData.budgetTotal) || 0,
-        spent: Number(eventData.budgetSpent) || 0,
-        status: Number(eventData.budgetSpent) > Number(eventData.budgetTotal) ? "Over Budget" : "Under Budget"
-      },
-      tasks: eventData.tasks || defaultTasks,
       teamAssignments: eventData.teamAssignments || [],
-      completed: false
+      completed: eventData.completed || false,
+      ongoing: false
     };
 
-    // Calculate completions
-    const finalComp = recalculateCompletion(newEvent.tasks);
-    const flags = checkStatusFlags(newEvent.tasks);
+    if (newEvent.completed) {
+      // Past event fields
+      newEvent.venue = eventData.venue || "";
+      newEvent.host = eventData.host || "";
+      newEvent.description = eventData.description || "";
+      newEvent.guestLecturer = eventData.guestLecturer || "";
+    } else {
+      // Upcoming event fields
+      newEvent.startTime = eventData.startTime || "09:00";
+      newEvent.endTime = eventData.endTime || "";
+      newEvent.duration = eventData.duration || "2";
+      newEvent.registrationDeadline = eventData.registrationDeadline || "";
+      newEvent.host = eventData.host || "";
+      newEvent.description = eventData.description || "";
+      newEvent.guestLecturer = eventData.guestLecturer || "";
+      newEvent.registerLinks = eventData.registerLinks || [];
+    }
 
-    setEvents(prev => [
-      ...prev,
-      {
-        ...newEvent,
-        ...flags,
-        completionPercentage: finalComp,
-        completed: finalComp === 100
-      }
-    ]);
+    setEvents(prev => [...prev, newEvent]);
   };
 
   const updateEvent = (id, updatedFields) => {
     setEvents(prev => prev.map(evt => {
       if (evt.id === id) {
-        const mergedTasks = updatedFields.tasks || evt.tasks;
-        const compPct = recalculateCompletion(mergedTasks);
-        const flags = checkStatusFlags(mergedTasks);
-        
-        let budgetData = evt.budget;
-        if (updatedFields.budgetTotal !== undefined || updatedFields.budgetSpent !== undefined) {
-          const total = Number(updatedFields.budgetTotal ?? evt.budget.total);
-          const spent = Number(updatedFields.budgetSpent ?? evt.budget.spent);
-          budgetData = {
-            total,
-            spent,
-            status: spent > total ? "Over Budget" : (spent === total ? "On Target" : "Under Budget")
-          };
-        }
-
-        return {
-          ...evt,
-          ...updatedFields,
-          budget: budgetData,
-          tasks: mergedTasks,
-          ...flags,
-          completionPercentage: compPct,
-          completed: compPct === 100
-        };
+        return { ...evt, ...updatedFields };
       }
       return evt;
     }));
@@ -312,18 +293,7 @@ export const EventProvider = ({ children }) => {
   const markEventCompleted = (id) => {
     setEvents(prev => prev.map(evt => {
       if (evt.id === id) {
-        const completedTasks = evt.tasks.map(t => ({ ...t, completed: true }));
-        return {
-          ...evt,
-          tasks: completedTasks,
-          planningStatus: true,
-          venueStatus: true,
-          vendorStatus: true,
-          marketingStatus: true,
-          executionStatus: true,
-          completionPercentage: 100,
-          completed: true
-        };
+        return { ...evt, completed: true, ongoing: false };
       }
       return evt;
     }));

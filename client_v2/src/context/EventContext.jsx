@@ -29,6 +29,18 @@ const initialEvents = [
     completed: false
   },
   {
+    id: "evt-5",
+    title: "Apex Business Case Competition",
+    host: "Elysian Finance & Strategy Club",
+    date: "2026-11-20",
+    description: "An elite global business case challenge bringing together top universities to pitch financial restructure plans and venture capital strategies to industry judges.",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+    guestLecturer: "Sir Richard Branson",
+    registerLinks: ["https://apexcompetition.org/join"],
+    teamAssignments: ["Elena Rostova", "Adrian Vance"],
+    completed: false
+  },
+  {
     id: "evt-3",
     title: "Pulse Medical Innovations Seminar",
     venue: "Zoom Broadcast Room",
@@ -99,7 +111,15 @@ export const EventProvider = ({ children }) => {
 
   const [events, setEvents] = useState(() => {
     const stored = localStorage.getItem("elysian_academic_events");
-    return stored ? JSON.parse(stored) : initialEvents;
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (!parsed.some(e => e.id === "evt-5")) {
+        const targetEvent = initialEvents.find(e => e.id === "evt-5");
+        if (targetEvent) parsed.push(targetEvent);
+      }
+      return parsed;
+    }
+    return initialEvents;
   });
 
   const [gallery, setGallery] = useState(() => {
@@ -178,14 +198,22 @@ export const EventProvider = ({ children }) => {
       date: eventData.date,
       image: eventData.image || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
       teamAssignments: eventData.teamAssignments || [],
-      completed: eventData.completed || false
+      completed: eventData.completed || false,
+      ongoing: false
     };
 
     if (newEvent.completed) {
       // Past event fields
       newEvent.venue = eventData.venue || "";
+      newEvent.host = eventData.host || "";
+      newEvent.description = eventData.description || "";
+      newEvent.guestLecturer = eventData.guestLecturer || "";
     } else {
       // Upcoming event fields
+      newEvent.startTime = eventData.startTime || "09:00";
+      newEvent.endTime = eventData.endTime || "";
+      newEvent.duration = eventData.duration || "2";
+      newEvent.registrationDeadline = eventData.registrationDeadline || "";
       newEvent.host = eventData.host || "";
       newEvent.description = eventData.description || "";
       newEvent.guestLecturer = eventData.guestLecturer || "";

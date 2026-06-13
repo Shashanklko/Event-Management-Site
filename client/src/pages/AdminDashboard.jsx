@@ -37,11 +37,9 @@ const AdminDashboard = () => {
   if (!isAdminLoggedIn) return null;
 
   // Overview calculations
-  const totalBudget = events.reduce((sum, e) => sum + e.budget.total, 0);
-  const totalSpent = events.reduce((sum, e) => sum + e.budget.spent, 0);
   const activeEventsCount = events.filter(e => !e.completed).length;
   const completedEventsCount = events.filter(e => e.completed).length;
-  const budgetHealth = totalSpent > totalBudget ? "Over Budget" : "Under Control";
+
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -50,11 +48,8 @@ const AdminDashboard = () => {
           <DashboardOverview
             events={events}
             inquiries={inquiries}
-            totalBudget={totalBudget}
-            totalSpent={totalSpent}
             activeEventsCount={activeEventsCount}
             completedEventsCount={completedEventsCount}
-            budgetHealth={budgetHealth}
             setActiveTab={setActiveTab}
           />
         );
@@ -195,7 +190,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* MAIN CONTENT WORKSPACE */}
-      <main className="flex-1 p-6 md:p-12 overflow-y-auto max-h-[calc(100vh-80px)] pb-24 lg:pb-12 z-10">
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto max-h-[calc(100vh-80px)] pb-24 lg:pb-12">
         {renderActiveTab()}
       </main>
 
